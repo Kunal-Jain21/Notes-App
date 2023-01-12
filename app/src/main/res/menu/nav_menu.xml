@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:title="Notes"
+            android:icon="@drawable/notes_icon"
+            android:id="@+id/notes" />
+
+        <item
+            android:title="Archive"
+            android:icon="@drawable/archive_icon"
+            android:id="@+id/archive" />
+
+        <item
+            android:title="Deleted"
+            android:icon="@drawable/delete_icon"
+            android:id="@+id/delete" />
+    </group>
+</menu>
