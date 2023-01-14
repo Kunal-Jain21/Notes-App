@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Google Keep</string>
+    <string name="app_name">Notes App</string>
     <string name="open">Open Navigation Drawer</string>
     <string name="close">Close Navigation Drawer</string>
 </resources>

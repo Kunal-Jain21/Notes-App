@@ -60,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="Title"
+                android:minHeight="48dp"
                 android:paddingStart="15dp"
                 android:paddingTop="5dp"
                 android:paddingEnd="3dp"
@@ -68,10 +69,12 @@
                 app:layout_constraintTop_toBottomOf="@id/tool" />
 
             <EditText
+                android:id="@+id/noteDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="Note"
+                android:minHeight="48dp"
                 android:paddingStart="15dp"
                 android:paddingBottom="5dp"
                 android:textAppearance="?android:textAppearanceMedium"
