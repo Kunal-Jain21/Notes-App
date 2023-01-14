@@ -23,7 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NotesListener {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -106,18 +106,29 @@ public class MainActivity extends AppCompatActivity {
         // Recycler View
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         notesRecycler.setLayoutManager(staggeredGridLayoutManager);
-        noteAdapter = new NoteAdapter(this, notesArrayList);
+        noteAdapter = new NoteAdapter(this, notesArrayList, this);
         notesRecycler.setAdapter(noteAdapter);
         noteAdapter.notifyDataSetChanged();
+
+        // on individual item click
+
     }
 
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else {
+        } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onNoteClicked(Notes notes, int position) {
+        Intent intent = new Intent(MainActivity.this, CreateNote.class);
+        intent.putExtra("isViewOrUpdate", true);
+        intent.putExtra("title", notes.getNoteTitle());
+        intent.putExtra("desc", notes.getNoteDesc());
+        startActivity(intent);
     }
 }
