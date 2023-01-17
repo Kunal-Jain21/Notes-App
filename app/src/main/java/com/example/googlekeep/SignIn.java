@@ -9,83 +9,90 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.regex.Pattern;
 
-public class CreateAccount extends AppCompatActivity {
+public class SignIn extends AppCompatActivity {
+
     EditText email_edit_text, password_edit_text, confirm_passwords_edit_text;
-    Button create_account_btn;
+    Button log_in_btn;
     ProgressBar progress_bar;
+    TextView login_text_view_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_account);
+        setContentView(R.layout.activity_sign_in);
 
         email_edit_text = findViewById(R.id.email_edit_text);
         password_edit_text = findViewById(R.id.password_edit_text);
-        confirm_passwords_edit_text = findViewById(R.id.confirm_passwords_edit_text);
-        create_account_btn = findViewById(R.id.create_account_btn);
+        log_in_btn = findViewById(R.id.log_in_btn);
         progress_bar = findViewById(R.id.progress_bar);
+        login_text_view_btn = findViewById(R.id.login_text_view_btn);
 
-        create_account_btn.setOnClickListener(new View.OnClickListener() {
+        login_text_view_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createAccount();
+                startActivity(new Intent(SignIn.this, CreateAccount.class));
             }
         });
 
+        log_in_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loginUser();
+            }
+        });
     }
 
-    void createAccount() {
+    void loginUser() {
         String email = email_edit_text.getText().toString();
         String password = password_edit_text.getText().toString();
-        String confirmPassword = confirm_passwords_edit_text.getText().toString();
 
-        if (validateData(email, password, confirmPassword)) {
-            createAccountInFirebase(email, password);
+        if (validateData(email, password)) {
+            loginAccountInFirebase(email, password);
         }
         else {
             return;
         }
     }
 
-    private void createAccountInFirebase(String email, String password) {
-        changeInProgress(true);
-
+    private void loginAccountInFirebase(String email, String password) {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+        changeInProgress(true);
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             changeInProgress(false);
             if (task.isSuccessful()) {
-                //success
-                firebaseAuth.getCurrentUser().sendEmailVerification();
-                firebaseAuth.signOut();
-                Toast.makeText(this, "Please verify your Email", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-            else {
-                // failure
-                Toast.makeText(this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                if (firebaseAuth.getCurrentUser().isEmailVerified()) {
+                    // go to Main Page
+                    startActivity(new Intent(SignIn.this, MainActivity.class));
+                    finish();
+                }
+                else {
+                    Toast.makeText(this, "Email not verified, Please verify your Email", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+
             }
         });
-
     }
 
     void changeInProgress(boolean inProgress) {
         if (inProgress) {
             progress_bar.setVisibility(View.VISIBLE);
-            create_account_btn.setVisibility(View.GONE);
+            log_in_btn.setVisibility(View.GONE);
         }
         else {
             progress_bar.setVisibility(View.GONE);
-            create_account_btn.setVisibility(View.VISIBLE);
+            log_in_btn.setVisibility(View.VISIBLE);
         }
     }
 
-    boolean validateData(String email, String password, String confirmPassword) {
+    boolean validateData(String email, String password) {
         String specialCharRegex= ".*[@#!$%^&+=].*";
         String UpperCaseRegex= ".*[A-Z].*";
         String NumberRegex= ".*[0-9].*";
@@ -119,13 +126,6 @@ public class CreateAccount extends AppCompatActivity {
             return false;
         }
 
-        // checking confirm password field
-        if (!password.equals(confirmPassword)) {
-            confirm_passwords_edit_text.setError("Password not matched");
-            return false;
-        }
         return true;
     }
-
-
 }

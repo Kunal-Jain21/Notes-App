@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -20,7 +19,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginVertical="32dp"
             android:id="@+id/sign_up_icon"
-            android:src="@drawable/delete_icon"/>
+            android:src="@drawable/sign_up_icon"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,7 +39,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Let's get started"
+                android:text="Welcome Back"
                 android:textStyle="bold"
                 android:textSize="36sp"
                 android:textColor="@color/black"/>
@@ -64,8 +63,7 @@
                 android:textSize="20sp"
                 android:background="@drawable/rounded_corner"
                 android:padding="16dp"
-                android:layout_marginTop="12dp"
-                android:focusedByDefault="false"/>
+                android:layout_marginTop="12dp"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -78,22 +76,11 @@
                 android:padding="16dp"
                 android:layout_marginTop="12dp"/>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/confirm_passwords_edit_text"
-                android:inputType="textEmailAddress"
-                android:hint="Confirm Password"
-                android:textSize="20sp"
-                android:background="@drawable/rounded_corner"
-                android:padding="16dp"
-                android:layout_marginTop="12dp"/>
-
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:id="@+id/create_account_btn"
-                android:text="Create Account"
+                android:id="@+id/log_in_btn"
+                android:text="Log In"
                 android:layout_marginTop="12dp"
                 android:paddingVertical="12dp"
                 android:textSize="16sp"/>
@@ -118,7 +105,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Already have an account"/>
+                android:text="Don't have an account? "/>
 
 
             <TextView
@@ -126,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/login_text_view_btn"
                 android:textStyle="bold"
-                android:text="Login"/>
+                android:text="Create Account"/>
         </LinearLayout>
 
 
@@ -134,4 +121,3 @@
 
 
 </ScrollView>
-
