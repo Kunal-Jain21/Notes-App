@@ -38,6 +38,7 @@
                     android:layout_alignParentEnd="true">
 
                     <ImageView
+                        android:id="@+id/pin_btn"
                         android:layout_width="35dp"
                         android:layout_height="match_parent"
                         android:padding="4sp"

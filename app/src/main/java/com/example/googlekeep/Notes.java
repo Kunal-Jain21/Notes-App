@@ -1,11 +1,22 @@
 package com.example.googlekeep;
 
-public class Notes {
-    private String noteTitle, noteDesc;
+import com.google.firebase.firestore.DocumentId;
 
-    public Notes(String noteTitle, String noteDesc) {
-        this.noteTitle = noteTitle;
-        this.noteDesc = noteDesc;
+public class Notes {
+    private String noteTitle, noteDesc, documentId;;
+
+    public Notes() {
+        this.noteTitle = "";
+        this.noteDesc = "";
+    }
+
+    @DocumentId
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
     }
 
     public String getNoteTitle() {
