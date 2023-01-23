@@ -54,18 +54,22 @@ public class CreateNote extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                noteTitle = title.getText().toString();
-                noteDescription = description.getText().toString();
-                if (noteTitle == null || noteTitle.isEmpty()) {
-                    finish();
-                    return;
-                }
-                Notes note = new Notes();
-                note.setNoteTitle(noteTitle);
-                note.setNoteDesc(noteDescription);
-                saveNoteToFirebase(note);
+                saveNote();
             }
         });
+    }
+
+    private void saveNote() {
+        noteTitle = title.getText().toString();
+        noteDescription = description.getText().toString();
+        if (noteTitle == null || noteTitle.isEmpty()) {
+            finish();
+            return;
+        }
+        Notes note = new Notes();
+        note.setNoteTitle(noteTitle);
+        note.setNoteDesc(noteDescription);
+        saveNoteToFirebase(note);
     }
 
     private void saveNoteToFirebase(Notes note) {
@@ -80,7 +84,7 @@ public class CreateNote extends AppCompatActivity {
             if (task.isSuccessful()) {
                 // note is added
                 String toastText="";
-                if (!docId.isEmpty())
+                if (isEditMode)
                     toastText = "Note updated successfully";
                 else
                     toastText = "Note added successfully";
@@ -95,5 +99,11 @@ public class CreateNote extends AppCompatActivity {
     private void setViewOrUpdateNote() {
         title.setText(noteTitle);
         description.setText(noteDescription);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        saveNote();
     }
 }
