@@ -10,9 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -169,4 +172,29 @@ public class MainActivity extends AppCompatActivity implements NotesListener {
         intent.putExtra("desc", notes.getNoteDesc());
         startActivity(intent);
     }
+
+
+    @Override
+    public void onLongClickMenu(boolean isSelected) {
+        if (isSelected){
+            getSupportActionBar().hide();
+        }else {
+            getSupportActionBar().show();
+        }
+    }
+
+//    @Override
+//    public void onLongClick() {
+//        isSelected = true;
+//        if (selectedItems.contains(notesArrayList.get(index))){
+//            holder.noteLayout.setBackgroundColor(Color.TRANSPARENT);
+//            selectedItems.remove(notesArrayList.get(index));
+//        }else {
+//            holder.noteLayout.setBackgroundColor(Color.red(2));
+//            selectedItems.add(notesArrayList.get(index));
+//        }
+//        if (selectedItems.size() == 0){
+//            isSelected = false;
+//        }
+//    }
 }

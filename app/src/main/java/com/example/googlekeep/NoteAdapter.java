@@ -2,6 +2,9 @@ package com.example.googlekeep;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     private ArrayList<Notes> notesArrayList;
     private Context context;
     private NotesListener notesListener;
+
+    boolean isSelected = false;
+    ArrayList<Notes> selectedItems = new ArrayList<>();
 
     public NoteAdapter(Context context, ArrayList<Notes> arrayList, NotesListener notesListener) {
         this.context = context;
@@ -41,8 +47,38 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         holder.noteLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                notesListener.onNoteClicked(notesArrayList.get(holder.getAdapterPosition()), holder.getAdapterPosition());
+                if (isSelected){
+                    if (selectedItems.contains(notesArrayList.get(holder.getAdapterPosition()))){
+                        holder.noteLayout.setBackgroundColor(Color.TRANSPARENT);
+                        selectedItems.remove(notesArrayList.get(holder.getAdapterPosition()));
+                    }else {
+                        holder.noteLayout.setBackgroundColor(Color.rgb(255,255,0));
+                        selectedItems.add(notesArrayList.get(holder.getAdapterPosition()));
+                    }
+                    if (selectedItems.size() == 0){
+                        isSelected = false;
+                    }
+                    notesListener.onLongClickMenu(isSelected);
+                }else {
+                    notesListener.onNoteClicked(notesArrayList.get(holder.getAdapterPosition()), holder.getAdapterPosition());
+                }
             }
+        });
+
+        holder.noteLayout.setOnLongClickListener(view ->{
+            isSelected = true;
+            if (selectedItems.contains(notesArrayList.get(index))){
+                holder.noteLayout.setBackgroundColor(Color.TRANSPARENT);
+                selectedItems.remove(notesArrayList.get(index));
+            }else {
+                holder.noteLayout.setBackgroundColor(Color.rgb(255,255,0));
+                selectedItems.add(notesArrayList.get(index));
+            }
+            if (selectedItems.size() == 0){
+                isSelected = false;
+            }
+            notesListener.onLongClickMenu(isSelected);
+            return true;
         });
     }
 
