@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1049973139288",
+    "project_id": "notes-app-5c5c0",
+    "storage_bucket": "notes-app-5c5c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049973139288:android:2cc3846119fcc1efe1672d",
+        "android_client_info": {
+          "package_name": "com.example.googlekeep"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049973139288-fco8qfoct7hps0j37gsv0fqpm79v7gtp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDF5h1Z25oaMEnYSJv996Jx0KExTr2ifc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1049973139288-fco8qfoct7hps0j37gsv0fqpm79v7gtp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
