@@ -1,8 +1,12 @@
 package com.example.googlekeep;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +20,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
@@ -23,13 +28,11 @@ public class MainActivity extends AppCompatActivity {
 
     DrawerLayout drawer_layout;
     NavigationView navigationView;
-
     FrameLayout frame_layout;
-
     ActionBarDrawerToggle drawerToggle;
-
     Toolbar toolbar;
-
+    ImageView profile;
+    private EditText search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +43,26 @@ public class MainActivity extends AppCompatActivity {
         drawer_layout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
+        search = findViewById(R.id.search);
+        profile = findViewById(R.id.profile);
         drawerToggle = new ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.open, R.string.close);
+
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(MainActivity.this, SignIn.class));
+                finish();
+            }
+        });
         drawer_layout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
         // Setting Custom Action Bar
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.archive_icon);
+//        getSupportActionBar().setHomeButtonEnabled(true);
 
 
 

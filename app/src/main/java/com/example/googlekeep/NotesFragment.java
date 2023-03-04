@@ -34,9 +34,9 @@ public class NotesFragment extends Fragment implements NotesListener{
     private RecyclerView notesRecycler;
     private NoteAdapter noteAdapter;
     private FloatingActionButton createNoteFab;
-    private EditText search;
+
     ArrayList<Notes> notesArrayList = new ArrayList<>();
-    ImageView profile;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,17 +45,7 @@ public class NotesFragment extends Fragment implements NotesListener{
         View view = inflater.inflate(R.layout.fragment_notes, container, false);
         notesRecycler = view.findViewById(R.id.notes_recycler);
         createNoteFab = view.findViewById(R.id.fab_btn);
-        search = view.findViewById(R.id.search);
-        profile = view.findViewById(R.id.profile);
 
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(requireActivity(), SignIn.class));
-                requireActivity().finish();
-            }
-        });
 
         // for removing keyboard
         requireActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
