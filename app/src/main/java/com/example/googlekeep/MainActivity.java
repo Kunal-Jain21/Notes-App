@@ -22,8 +22,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.Objects;
-
 public class MainActivity extends AppCompatActivity {
 
     DrawerLayout drawer_layout;
@@ -65,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
 //        getSupportActionBar().setHomeButtonEnabled(true);
 
 
-
-
         replaceFragment(new NotesFragment());
 
         if (savedInstanceState == null) {
@@ -75,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         navigationView.setNavigationItemSelectedListener(item -> {
+
             switch (item.getItemId()) {
                 case R.id.notes: {
                     replaceFragment(new NotesFragment());

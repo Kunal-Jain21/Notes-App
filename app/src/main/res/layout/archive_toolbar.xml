@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/archiveToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/tool_bar_style"
@@ -16,15 +16,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/search"
+            <TextView
                 android:layout_width="0dp"
+                android:layout_weight="0.50"
                 android:layout_height="match_parent"
-                android:layout_weight="0.7"
-                android:background="@android:color/transparent"
-                android:hint="Search your notes"
-                android:inputType="text"
-                android:textColor="@color/black" />
+                android:textSize="25sp"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+
+                android:text="Archive"/>
 
             <ImageView
                 android:layout_width="0dp"
@@ -34,13 +34,13 @@
                 android:src="@drawable/list_view" />
 
             <ImageView
-                android:id="@+id/profile"
+                android:id="@+id/searchIcon"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:layout_marginStart="0dp"
                 android:layout_weight="0.15"
-                android:src="@drawable/person" />
+                android:src="@drawable/search_icon" />
 
         </LinearLayout>
 
