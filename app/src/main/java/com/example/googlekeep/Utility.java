@@ -17,4 +17,10 @@ public class Utility {
         return  FirebaseFirestore.getInstance().collection("notes")
                 .document(currentUser.getUid()).collection("archive");
     }
+
+    static CollectionReference getCollectionReferenceForDeleted(){
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        return  FirebaseFirestore.getInstance().collection("notes")
+                .document(currentUser.getUid()).collection("deleted");
+    }
 }

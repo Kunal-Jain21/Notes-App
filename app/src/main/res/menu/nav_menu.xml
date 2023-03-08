@@ -4,6 +4,7 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+
         <item
             android:title="Notes"
             android:icon="@drawable/notes_icon"
@@ -18,5 +19,15 @@
             android:title="Deleted"
             android:icon="@drawable/delete_icon"
             android:id="@+id/delete" />
+    </group>
+
+
+    <group
+        android:id="@+id/divider"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/logout"
+            android:title="Logout"/>
     </group>
 </menu>

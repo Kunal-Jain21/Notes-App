@@ -1,6 +1,7 @@
 package com.example.googlekeep;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -11,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.firestore.DocumentReference;
 
 public class CreateNote extends AppCompatActivity {
-    ImageView backButton, pin, archiveButton;
+    ImageView backButton, deleteBtn, archiveBtn;
     String noteDescription, noteTitle;
     EditText description, title;
     String docId;
@@ -25,28 +26,22 @@ public class CreateNote extends AppCompatActivity {
         backButton = findViewById(R.id.backButton);
         description = findViewById(R.id.noteDescription);
         title = findViewById(R.id.title);
-        pin = findViewById(R.id.pin_btn);
-        archiveButton = findViewById(R.id.archiveButton);
+        deleteBtn = findViewById(R.id.deleteBtn);
+        archiveBtn = findViewById(R.id.archiveBtn);
 
-        pin.setOnClickListener(new View.OnClickListener() {
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DocumentReference documentReference = Utility.getCollectionReferenceForNotes().document(docId);
-                documentReference.delete().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(CreateNote.this, "Note Deleted", Toast.LENGTH_SHORT).show();
-                        finish();
-                    } else {
-                        Toast.makeText(CreateNote.this, "Failed to Delete", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                Log.v("tesing", "inside delete");
+                verifyNote(3);
             }
         });
 
-        archiveButton.setOnClickListener(new View.OnClickListener() {
+        archiveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                archiveNote();
+                Log.v("tesing", "inside archive");
+                verifyNote(2);
             }
         });
 
@@ -61,36 +56,77 @@ public class CreateNote extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveNote();
+                verifyNote(1);
             }
         });
     }
 
-    private void saveNote() {
+    private void verifyNote(int methodCode) {
+
         noteTitle = title.getText().toString();
         noteDescription = description.getText().toString();
-        if (noteTitle == null || noteTitle.isEmpty()) {
+        if (noteTitle == null || noteTitle.trim().isEmpty()) {
             finish();
             return;
         }
         Notes note = new Notes();
         note.setNoteTitle(noteTitle);
         note.setNoteDesc(noteDescription);
-        saveNoteToFirebase(note);
+        if (methodCode == 1) {
+            saveNoteToFirebase(note);
+        }else if (methodCode == 2) {
+            archiveNoteToFirebase(note);
+        }else if (methodCode == 3) {
+            deleteNoteToFirebase(note);
+        }
+//        DocumentReference documentReference = Utility.getCollectionReferenceForNotes().document(docId);
+//
+//        documentReference.delete().addOnCompleteListener(task -> {
+//            if (task.isSuccessful()) {
+//                Toast.makeText(CreateNote.this, "Note Deleted", Toast.LENGTH_SHORT).show();
+//                finish();
+//            } else {
+//                Toast.makeText(CreateNote.this, "Failed to Delete", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 
-    private void archiveNote() {
-        noteTitle = title.getText().toString();
-        noteDescription = description.getText().toString();
-        if (noteTitle == null || noteTitle.isEmpty()) {
-            finish();
-            return;
+    private void deleteNoteToFirebase(Notes note) {
+        DocumentReference deleteDocument;
+        deleteDocument = Utility.getCollectionReferenceForDeleted().document();
+        if (isEditMode){
+            DocumentReference noteDocumentReference = Utility.getCollectionReferenceForNotes().document(docId);
+            noteDocumentReference.delete().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    deleteDocument.set(note).addOnCompleteListener(task1 -> {
+                        if (task1.isSuccessful()) {
+                            // note is added
+                            String toastText = "Note Deleted successfully";
+                            Toast.makeText(this, toastText, Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Toast.makeText(this, "Failed while Deleting note", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(CreateNote.this, "Failed to Delete", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }else{
+            deleteDocument.set(note).addOnCompleteListener(task1 -> {
+                if (task1.isSuccessful()) {
+                    // note is added
+                    String toastText = "Note Deleted successfully";
+                    Toast.makeText(this, toastText, Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(this, "Failed while archiving note", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
-        Notes note = new Notes();
-        note.setNoteTitle(noteTitle);
-        note.setNoteDesc(noteDescription);
-        archiveNoteToFirebase(note);
+
     }
+
 
     private void archiveNoteToFirebase(Notes note) {
         DocumentReference documentReference;
@@ -132,6 +168,7 @@ public class CreateNote extends AppCompatActivity {
 
     private void saveNoteToFirebase(Notes note) {
         DocumentReference documentReference;
+        Log.v("testing", "Line 171");
         if (isEditMode) {
             documentReference = Utility.getCollectionReferenceForNotes().document(docId);
         } else {
@@ -161,6 +198,6 @@ public class CreateNote extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        saveNote();
+        verifyNote(1);
     }
 }

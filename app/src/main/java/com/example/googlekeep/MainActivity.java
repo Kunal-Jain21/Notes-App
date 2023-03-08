@@ -3,10 +3,8 @@ package com.example.googlekeep;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     FrameLayout frame_layout;
     ActionBarDrawerToggle drawerToggle;
     Toolbar toolbar;
-    ImageView profile;
     private EditText search;
 
     @Override
@@ -42,18 +39,8 @@ public class MainActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
         search = findViewById(R.id.search);
-        profile = findViewById(R.id.profile);
         drawerToggle = new ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.open, R.string.close);
 
-
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(MainActivity.this, SignIn.class));
-                finish();
-            }
-        });
         drawer_layout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
@@ -84,14 +71,25 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case R.id.delete: {
+                    replaceFragment(new DeleteFragment());
                     Toast.makeText(this, "Delete Activity", Toast.LENGTH_SHORT).show();
                     break;
                 }
+                case R.id.nav_logout: {
+                    logout();
+                    break;
+                }
+
             }
             drawer_layout.closeDrawer(GravityCompat.START);
             return true;
         });
+    }
 
+    private void logout() {
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(MainActivity.this, SignIn.class));
+        finish();
     }
 
     @Override
@@ -103,21 +101,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-//    @Override
-//    public void onLongClick() {
-//        isSelected = true;
-//        if (selectedItems.contains(notesArrayList.get(index))){
-//            holder.noteLayout.setBackgroundColor(Color.TRANSPARENT);
-//            selectedItems.remove(notesArrayList.get(index));
-//        }else {
-//            holder.noteLayout.setBackgroundColor(Color.red(2));
-//            selectedItems.add(notesArrayList.get(index));
-//        }
-//        if (selectedItems.size() == 0){
-//            isSelected = false;
-//        }
-//    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
