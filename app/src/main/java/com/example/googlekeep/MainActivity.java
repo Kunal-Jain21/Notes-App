@@ -37,8 +37,7 @@ public class MainActivity extends AppCompatActivity {
         frame_layout = findViewById(R.id.frame_layout);
         drawer_layout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
-        toolbar = findViewById(R.id.toolbar);
-        search = findViewById(R.id.search);
+        toolbar = findViewById(R.id.newtoolbar);
         drawerToggle = new ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.open, R.string.close);
 
         drawer_layout.addDrawerListener(drawerToggle);
@@ -48,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        getSupportActionBar().setHomeButtonEnabled(true);
+//        getSupportActionBar().setTitle("App");
 
 
         replaceFragment(new NotesFragment());

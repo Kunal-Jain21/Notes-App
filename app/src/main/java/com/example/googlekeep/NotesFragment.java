@@ -3,32 +3,22 @@ package com.example.googlekeep;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class NotesFragment extends Fragment implements NotesListener{
     private RecyclerView notesRecycler;
@@ -43,6 +33,7 @@ public class NotesFragment extends Fragment implements NotesListener{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_notes, container, false);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Notes");
         notesRecycler = view.findViewById(R.id.notes_recycler);
         createNoteFab = view.findViewById(R.id.fab_btn);
 
@@ -66,6 +57,7 @@ public class NotesFragment extends Fragment implements NotesListener{
         super.onStart();
         setData();
     }
+
     private void setData() {
         notesArrayList.clear();
         Utility.getCollectionReferenceForNotes().get()
@@ -108,9 +100,10 @@ public class NotesFragment extends Fragment implements NotesListener{
     @Override
     public void onLongClickMenu(boolean isSelected) {
         if (isSelected){
-            ((AppCompatActivity) requireActivity()).getSupportActionBar().hide();
+            ((AppCompatActivity) requireActivity()).getSupportActionBar();
+//            ((AppCompatActivity) requireActivity()).getSupportActionBar().hide();
         }else {
-            ((AppCompatActivity) requireActivity()).getSupportActionBar().show();
+//            ((AppCompatActivity) requireActivity()).getSupportActionBar().show();
         }
     }
 

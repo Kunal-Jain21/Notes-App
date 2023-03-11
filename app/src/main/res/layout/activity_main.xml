@@ -5,6 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:openDrawer="start"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -12,13 +13,18 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/header"
-            layout="@layout/toolbar"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/newtoolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="wrap_content" />
+
+<!--        <include-->
+<!--            android:id="@+id/header"-->
+<!--            layout="@layout/toolbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent" />-->
 
         <FrameLayout
             android:id="@+id/frame_layout"

@@ -3,31 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:icon="@drawable/pin"
-        android:title="Pin"
-        app:showAsAction="ifRoom" />
-
-
-    <item
-        android:icon="@drawable/change_color"
-        android:title="Change Color"
-        app:showAsAction="ifRoom" />
+        android:id="@+id/restore"
+        android:icon="@drawable/restore"
+        android:title="Restore"
+        app:showAsAction="always" />
 
     <item
-        android:icon="@drawable/archive_icon"
-        android:title="Archive"
-        app:showAsAction="collapseActionView"/>
-    <item
-        android:icon="@drawable/delete_icon"
-        android:title="Delete"
-        app:showAsAction="collapseActionView"/>
-
-    <item
-        android:title="Make a Copy"
-        app:showAsAction="collapseActionView"/>
-
-    <item
-        android:title="Share"
-        app:showAsAction="collapseActionView"/>
-
+        android:id="@+id/deleteForever"
+        android:icon="@drawable/delete_forever"
+        android:title="Delete Forever"
+        app:showAsAction="always" />
 </menu>

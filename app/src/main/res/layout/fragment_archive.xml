@@ -11,29 +11,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/archiveHeader"
-            layout="@layout/archive_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:visibility="gone"/>
+<!--        <include-->
+<!--            android:id="@+id/archiveHeader"-->
+<!--            layout="@layout/archive_toolbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            android:visibility="visible"/>-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/archiveRecycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginEnd="2.00dp"
             android:clipToPadding="false"
             android:paddingStart="0dp"
             android:paddingEnd="12.00dp"
             android:paddingBottom="12.00dp"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/archiveHeader"
+            app:layout_constraintTop_toTopOf="parent"
             app:spanCount="2"
+            tools:layout_editor_absoluteX="2dp"
             tools:listitem="@layout/note_element" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
